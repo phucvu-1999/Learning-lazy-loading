@@ -40,35 +40,58 @@ btnScrollTo.addEventListener('click', e => {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-// Event propagation
-const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+// Page navigation
 
-const randomColor = () =>
-  `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+// document.querySelectorAll('.nav__link').forEach(node => {
+//   node.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
 
-document.querySelector('.nav__link').addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  console.log('LINK: ', e.target, e.currentTarget);
-  console.log(
-    'compare currentTarget and this keyword: ',
-    this === e.currentTarget
-  );
-
-  // Stop propagation
-  //   e.stopPropagation();
-});
+// Event delegation
+// 1. Add event listener to the common parent element of all element that we interested in.
+// 2. Determine what elemement originated the event.
 
 document.querySelector('.nav__links').addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  console.log('CONTAINER: ', e.target, e.currentTarget);
+  // Matching stragedy
+  if (e.target.classList.contains('nav__link')) {
+    e.preventDefault();
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
 });
 
-document.querySelector('.nav').addEventListener(
-  'click',
-  function (e) {
-    this.style.backgroundColor = randomColor();
-    console.log('NAV: ', e.target, e.currentTarget);
-  },
-  true
-);
+// // Event propagation
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK: ', e.target, e.currentTarget);
+//   console.log(
+//     'compare currentTarget and this keyword: ',
+//     this === e.currentTarget
+//   );
+
+//   // Stop propagation
+//   //   e.stopPropagation();
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER: ', e.target, e.currentTarget);
+// });
+
+// document.querySelector('.nav').addEventListener(
+//   'click',
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log('NAV: ', e.target, e.currentTarget);
+//   },
+//   true
+// );
