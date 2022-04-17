@@ -36,23 +36,8 @@ document.addEventListener('keydown', function (e) {
 
 // Scroll button
 btnScrollTo.addEventListener('click', e => {
-  const s1Coords = section1.getBoundingClientRect();
   section1.scrollIntoView({ behavior: 'smooth' });
 });
-
-// Page navigation
-
-// document.querySelectorAll('.nav__link').forEach(node => {
-//   node.addEventListener('click', function (e) {
-//     e.preventDefault();
-//     const id = this.getAttribute('href');
-//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-//   });
-// });
-
-// Event delegation
-// 1. Add event listener to the common parent element of all element that we interested in.
-// 2. Determine what elemement originated the event.
 
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   // Matching stragedy
@@ -61,6 +46,58 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+// Tab components
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!clicked) return;
+
+  // Remove tab active
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+
+  // add tab active
+  clicked.classList.add('operations__tab--active');
+
+  // Remove tabs content active
+  tabsContent.forEach(tab =>
+    tab.classList.remove('operations__content--active')
+  );
+
+  // Active content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+// Refactor code
+function handleHover(e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav__links').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(sibling => {
+      if (sibling !== link) sibling.style.opacity = this;
+    });
+
+    logo.style.opacity = this;
+  }
+}
+
+// Menu fade animation
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+// Sticky navigation
+const initialCords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function (e) {
+  if (window.scrollY > initialCords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
 });
 
 // // Event propagation
@@ -97,25 +134,25 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 // );
 
 // DOM traversing
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
-// Going downward: Selecting child element
-console.log('Selecting child: ', h1.querySelectorAll('.highlight'));
-console.log('h1 direct children: ', h1.childNodes);
-console.log('h1 children: ', h1.children);
+// // Going downward: Selecting child element
+// console.log('Selecting child: ', h1.querySelectorAll('.highlight'));
+// console.log('h1 direct children: ', h1.childNodes);
+// console.log('h1 children: ', h1.children);
 
-h1.firstElementChild.style.color = 'white';
-h1.lastElementChild.style.color = 'black';
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'black';
 
-// Going upward, selecting parents
-console.log('parent of the h1 element: ', h1.parentNode);
+// // Going upward, selecting parents
+// console.log('parent of the h1 element: ', h1.parentNode);
 
-h1.closest('.header').style.backgroundColor = 'orangered';
-h1.closest('h1').style.backgroundColor = 'blue';
+// h1.closest('.header').style.backgroundColor = 'orangered';
+// h1.closest('h1').style.backgroundColor = 'blue';
 
-// Going sideway: silbling
-console.log('h1 prev silbling: ', h1.previousElementSibling);
-console.log('h1 next silbling: ', h1.nextElementSibling);
+// // Going sideway: silbling
+// console.log('h1 prev silbling: ', h1.previousElementSibling);
+// console.log('h1 next silbling: ', h1.nextElementSibling);
 
-// Get all the silbling elements
-console.log('all sibling elements: ', h1.parentElement.children);
+// // Get all the silbling elements
+// console.log('all sibling elements: ', h1.parentElement.children);
