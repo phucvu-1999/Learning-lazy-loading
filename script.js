@@ -95,3 +95,27 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 //   },
 //   true
 // );
+
+// DOM traversing
+const h1 = document.querySelector('h1');
+
+// Going downward: Selecting child element
+console.log('Selecting child: ', h1.querySelectorAll('.highlight'));
+console.log('h1 direct children: ', h1.childNodes);
+console.log('h1 children: ', h1.children);
+
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'black';
+
+// Going upward, selecting parents
+console.log('parent of the h1 element: ', h1.parentNode);
+
+h1.closest('.header').style.backgroundColor = 'orangered';
+h1.closest('h1').style.backgroundColor = 'blue';
+
+// Going sideway: silbling
+console.log('h1 prev silbling: ', h1.previousElementSibling);
+console.log('h1 next silbling: ', h1.nextElementSibling);
+
+// Get all the silbling elements
+console.log('all sibling elements: ', h1.parentElement.children);
