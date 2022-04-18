@@ -166,8 +166,6 @@ let currentSlide = 0;
 const maxSlide = slides.length - 1;
 
 const slider = document.querySelector('.slider');
-slider.style.transform = 'scale(0.5)';
-slider.style.overflow = 'visible';
 
 // Refactor function
 const gotoSlide = function (slideArg) {
@@ -201,3 +199,8 @@ const prevSlide = function () {
 btnRight.addEventListener('click', nextSlide);
 
 btnLeft.addEventListener('click', prevSlide);
+
+// Key press
+document.addEventListener('keydown', function (e) {
+  console.log('event: ', e);
+});
