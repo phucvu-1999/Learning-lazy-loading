@@ -202,5 +202,6 @@ btnLeft.addEventListener('click', prevSlide);
 
 // Key press
 document.addEventListener('keydown', function (e) {
-  console.log('event: ', e);
+  if (e.key === 'ArrowLeft') prevSlide();
+  else if (e.key === 'ArrowRight') nextSlide();
 });
