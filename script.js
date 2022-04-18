@@ -12,6 +12,9 @@ const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 const allSections = document.querySelectorAll('.section');
 const imgTargets = document.querySelectorAll('img[data-src]');
+const slides = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
 
 // Modal
 const openModal = function (e) {
@@ -157,59 +160,44 @@ imgTargets.forEach(img => {
   imgObserver.observe(img);
 });
 
-// // Event propagation
-// const randomInt = (min, max) =>
-//   Math.floor(Math.random() * (max - min + 1) + min);
+// SLIDER
 
-// const randomColor = () =>
-//   `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+let currentSlide = 0;
+const maxSlide = slides.length - 1;
 
-// document.querySelector('.nav__link').addEventListener('click', function (e) {
-//   this.style.backgroundColor = randomColor();
-//   console.log('LINK: ', e.target, e.currentTarget);
-//   console.log(
-//     'compare currentTarget and this keyword: ',
-//     this === e.currentTarget
-//   );
+const slider = document.querySelector('.slider');
+slider.style.transform = 'scale(0.5)';
+slider.style.overflow = 'visible';
 
-//   // Stop propagation
-//   //   e.stopPropagation();
-// });
+// Refactor function
+const gotoSlide = function (slideArg) {
+  slides.forEach((slide, index) => {
+    slide.style.transform = `translateX(${(index - slideArg) * 100}%)`;
+  });
+};
 
-// document.querySelector('.nav__links').addEventListener('click', function (e) {
-//   this.style.backgroundColor = randomColor();
-//   console.log('CONTAINER: ', e.target, e.currentTarget);
-// });
+gotoSlide(0);
 
-// document.querySelector('.nav').addEventListener(
-//   'click',
-//   function (e) {
-//     this.style.backgroundColor = randomColor();
-//     console.log('NAV: ', e.target, e.currentTarget);
-//   },
-//   true
-// );
+// Move to the right
+const nextSlide = function () {
+  if (currentSlide === maxSlide) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+  gotoSlide(currentSlide);
+};
 
-// DOM traversing
-// const h1 = document.querySelector('h1');
+const prevSlide = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide;
+  } else {
+    currentSlide--;
+  }
 
-// // Going downward: Selecting child element
-// console.log('Selecting child: ', h1.querySelectorAll('.highlight'));
-// console.log('h1 direct children: ', h1.childNodes);
-// console.log('h1 children: ', h1.children);
+  gotoSlide(currentSlide);
+};
 
-// h1.firstElementChild.style.color = 'white';
-// h1.lastElementChild.style.color = 'black';
+btnRight.addEventListener('click', nextSlide);
 
-// // Going upward, selecting parents
-// console.log('parent of the h1 element: ', h1.parentNode);
-
-// h1.closest('.header').style.backgroundColor = 'orangered';
-// h1.closest('h1').style.backgroundColor = 'blue';
-
-// // Going sideway: silbling
-// console.log('h1 prev silbling: ', h1.previousElementSibling);
-// console.log('h1 next silbling: ', h1.nextElementSibling);
-
-// // Get all the silbling elements
-// console.log('all sibling elements: ', h1.parentElement.children);
+btnLeft.addEventListener('click', prevSlide);

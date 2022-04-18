@@ -234,12 +234,12 @@ h4 {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   margin: 0 12rem;
-  transition: all 1s linear;
+  transition: all 0.5s linear;
 }
 
 .features__img {
   width: 100%;
-  transition: all 1s linear;
+  transition: all 0.5s linear;
 }
 
 .features__feature {
