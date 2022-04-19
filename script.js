@@ -205,3 +205,5 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowLeft') prevSlide();
   else if (e.key === 'ArrowRight') nextSlide();
 });
+
+console.log('END !!!');
